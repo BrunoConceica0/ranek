@@ -18,7 +18,9 @@
 </template>
 
 <script>
+import { api } from "@/views/services";
 export default {
+  name: "produtosLista",
   data() {
     return {
       produtos: null,
@@ -26,19 +28,15 @@ export default {
   },
   methods: {
     getProdutos() {
-      fetch("http://localhost:3000/produto").then((response) =>
-        response.json().then((data) => {
-          this.produtos = data;
-        })
-      );
+      api.get("/produto").then((response) => {
+        this.produtos = response.data;
+      });
     },
   },
   created() {
     this.getProdutos();
   },
-  name: "produtosLista",
 };
 </script>
 
 <style></style>
-http://localhost:3000/produto
