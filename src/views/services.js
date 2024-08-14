@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const axiosInstante = axios.create({
+const axiosInstantes = axios.create({
   baseURL: "http://localhost:3000",
 });
 export const api = {
   get(endpoint) {
-    return axiosInstante.get(endpoint);
+    return axiosInstantes.get(endpoint);
   },
 };
