@@ -9,6 +9,7 @@
         @click.prevent="buscarProdutos"
       />
     </form>
+    {{ busca }}
   </div>
 </template>
 
