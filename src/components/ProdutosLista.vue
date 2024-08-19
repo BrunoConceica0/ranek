@@ -5,7 +5,7 @@
         <li v-for="produto in produtos" :key="produto.id">
           <img
             v-if="produto.foto"
-            :src="produto.foto[0].scr"
+            :src="produto.foto[0].src"
             :alt="produto.foto[0].titulo"
           />
           <p class="produto_preco">{{ produto.preco }}</p>
@@ -14,23 +14,38 @@
         </li>
       </ul>
     </div>
+    {{ url }}
   </section>
 </template>
 
 <script>
 import { api } from "@/views/services";
+import rerialize from "@/helpers";
 export default {
   name: "produtosLista",
   data() {
     return {
       produtos: null,
+      produtosPorPagina: 9,
     };
   },
+  computed: {
+    url() {
+      const query = rerialize(this.$route.query);
+      return `/produto?_limit=${this.produtosPorPagina}${query}`;
+    },
+  },
+
   methods: {
     getProdutos() {
-      api.get("/produto").then((response) => {
+      api.get(this.url).then((response) => {
         this.produtos = response.data;
       });
+    },
+  },
+  watch: {
+    url() {
+      this.getProdutos();
     },
   },
   created() {
